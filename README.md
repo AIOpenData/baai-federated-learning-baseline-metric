@@ -121,7 +121,7 @@
 <table border="1" cellspacing="0" cellpadding="10" width="100%">
 <thead>
 <tr class="firstHead">  
-<th colspan="1" rowspan="1">false detection rate</th> <th>missed detection rate</th> <th>object detection correct rate</th> <th>sgcc helmet image score</th>
+<th colspan="1" rowspan="1">false detection rate</th> <th>missed detection rate</th> <th>object detection correct rate</th> <th>sgcc crane image score</th>
  </tr>
 </thead>
 <tbody>
