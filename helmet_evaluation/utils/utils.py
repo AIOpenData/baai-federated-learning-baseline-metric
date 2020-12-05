@@ -5,7 +5,6 @@ import sys
 import torch
 import numpy as np
 import json
-import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +92,7 @@ def helmet_image_false_detection(pred_no_wear_labels, pred_no_wear_boxes, target
         return 1, 1
 
     # the predicted no_wear_helmet boxes number is more than twice as much as
-    # the gold no_wear_helmet boxes number (No iou threshold requirements), it is false detection
+    # the gold no_wear_helmet boxes number (no iou threshold requirements), it is false detection
     if len(pred_no_wear_labels) / len(target_no_wear_labels) > 2:
         # print("{} / {}".format(len(pred_no_wear_labels), len(target_no_wear_labels)))
         return 1, 1

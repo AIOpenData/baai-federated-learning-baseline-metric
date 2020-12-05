@@ -5,7 +5,6 @@ import sys
 import torch
 import numpy as np
 import json
-import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -90,6 +89,12 @@ def crane_image_false_detection(pred_crane_labels, pred_crane_boxes, target_cran
 
     # if the given image is a background image, it is false detection
     if len(target_crane_labels) == 0:
+        return 1, 1
+
+    # the predicted crane boxes number is more than twice as much as
+    # the gold crane boxes number (no iou threshold requirements), it is false detection
+    if len(pred_crane_labels) / len(target_crane_labels) > 2:
+        # print("{} / {}".format(len(pred_crane_labels), len(target_crane_labels)))
         return 1, 1
 
     target_to_pred_crane_idx_list = []  # the indices of the boxes that have been detected

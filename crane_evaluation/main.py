@@ -1,5 +1,4 @@
 import logging.handlers
-import numpy as np
 import sys
 import torch
 import traceback
@@ -103,10 +102,6 @@ def evaluate_crane_image_sgcc_score(predicted_file_json_path, gold_json_file_pat
                                                                          object_detection_total_count,
                                                                          object_detection_correct_rate))
 
-        score = 1 - (
-                false_detection_weight * false_detection_rate + missed_detection_weight * missed_detection_rate + object_detection_weight * (
-                1 - object_detection_correct_rate))
-
         sgcc_crane_image_score = 1 - (
                 false_detection_weight * false_detection_rate + missed_detection_weight * missed_detection_rate + object_detection_weight * (
                 1 - object_detection_correct_rate))
@@ -118,9 +113,9 @@ def evaluate_crane_image_sgcc_score(predicted_file_json_path, gold_json_file_pat
             [false_detection_rate, missed_detection_rate, object_detection_correct_rate, sgcc_crane_image_score]]
         logger.info("\n{}\n".format(AsciiTable(ap_table).table))
 
-        return score, "评测成功"  # 'success'
+        return float('{:.8f}'.format(sgcc_crane_image_score)), "评测成功"
     except Exception as e:
-        return -1, "格式错误"  # str(e)
+        return -1, "格式错误"
     except AssertionError:
         _, _, tb = sys.exc_info()
         traceback.print_tb(tb)  # fixed format
@@ -129,20 +124,18 @@ def evaluate_crane_image_sgcc_score(predicted_file_json_path, gold_json_file_pat
 
         logger.info('an error occurred on line {} in statement {}'.format(line, text))
 
-        return -1, "格式错误"  # "ASSERT: " + text
+        return -1, "格式错误"
 
 
 def entrance(predicted_file_json_path: str, gold_json_file_path: str):
-    # score, message = evaluate_map(predicted_file_json_path=predicted_file_json_path,
-    #                               gold_json_file_path=gold_json_file_path, iou_threshold=0.5)
     score, message = evaluate_crane_image_sgcc_score(predicted_file_json_path, gold_json_file_path, iou_threshold=0.5,
                                                      false_detection_weight=0.3, missed_detection_weight=0.5,
                                                      object_detection_weight=0.2)
 
-    if message != "评测成功":  # "success":
-        status = 0  # State.FAILED
+    if message != "评测成功":
+        status = 0
     else:
-        status = 1  # State.SUCCESS
+        status = 1
 
     return score, message, status
 

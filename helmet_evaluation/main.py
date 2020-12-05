@@ -1,5 +1,4 @@
 import logging.handlers
-import numpy as np
 import sys
 import torch
 import traceback
@@ -115,7 +114,7 @@ def evaluate_helmet_image_sgcc_score(predicted_file_json_path: str, gold_json_fi
             [false_detection_rate, missed_detection_rate, object_detection_correct_rate, sgcc_helmet_image_score]]
         logger.info("\n{}\n".format(AsciiTable(ap_table).table))
 
-        return sgcc_helmet_image_score, "评测成功"
+        return float('{:.8f}'.format(sgcc_helmet_image_score)), "评测成功"
     except Exception as e:
         return -1, "格式错误"
     except AssertionError:
@@ -134,10 +133,10 @@ def entrance(predicted_file_json_path: str, gold_json_file_path: str):
                                                       gold_json_file_path=gold_json_file_path, iou_threshold=0.5,
                                                       false_detection_weight=0.3,
                                                       missed_detection_weight=0.5, object_detection_weight=0.2)
-    if message != "评测成功":  # "success":
-        status = 0  # State.FAILED
+    if message != "评测成功":
+        status = 0
     else:
-        status = 1  # State.SUCCESS
+        status = 1
 
     return score, message, status
 
