@@ -136,9 +136,8 @@
 
 ## 选手问题答疑
 问题1：
-`for class_item in gt_data['categories']:`  
-提交结果`pred_data`是一个`list`，那么标注结果`gt_data`应该也是一个`list`，这里当成一个`dict`来用了？  
-解决方案：提交结果`pred_data`是一个`list`，标注结果`gt_data`应该是一个`dict`。
+`for class_item in gt_data['categories']:`提交结果`pred_data`是一个`list`，那么标注结果`gt_data`应该也是一个`list`，这里当成一个`dict`来用了？  
+解决方案：提交结果`pred_data`是一个`list`，标注结果`gt_data`是一个`dict`。
 
 问题2：
 当前评测指标的规则当中的预测单项目标框数量超过标准答案中框数量的2倍，是针对安全帽赛道还是吊车赛道的？  
