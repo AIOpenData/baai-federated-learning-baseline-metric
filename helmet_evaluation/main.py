@@ -29,7 +29,7 @@ def evaluate_helmet_image_sgcc_score(predicted_file_json_path: str, gold_json_fi
             else:
                 class_name_list.append(class_item['name'])
 
-        class_name_dict = {'wear_helmet_label': 0, 'no_helmet_label': 1}
+        class_name_dict = {'wear_helmet_label': 1, 'no_helmet_label': 0}
 
         # traverse the images, a batch of one picture
         false_detection_count = 0
